@@ -1,0 +1,15 @@
+.env
+.env.*
+*.key
+*.pem
+auth.json
+.credentials.json
+history.jsonl
+sessions/
+cache/
+backups/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+audit-local-*
+local-inventory-*
