@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Valida el repo: JSON, frontmatter, TOML, sincronía Claude/Codex y ausencia de datos privados."""
+"""Valida el repo: JSON, frontmatter de agentes y skills, y ausencia de datos privados."""
 import json
 import pathlib
 import re
 import sys
-import tomllib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PLUGIN = ROOT / "plugins" / "agents-skills"
@@ -55,23 +54,11 @@ for d in sorted((PLUGIN / "skills").iterdir()):
     if not fm.get("description"):
         err(f"{f}: sin description")
 
-claude = {p.stem for p in (PLUGIN / "agents").glob("*.md")}
-codex = {p.stem for p in (ROOT / "codex" / "agents").glob("*.toml")}
-if claude != codex:
-    err(f"agentes desincronizados: {sorted(claude ^ codex)}")
-for p in (PLUGIN / "agents").glob("*.md"):
+agents = sorted((PLUGIN / "agents").glob("*.md"))
+for p in agents:
     fm = frontmatter(p)
     if fm.get("name") != p.stem or not fm.get("description"):
         err(f"{p}: frontmatter incorrecto")
-for p in (ROOT / "codex" / "agents").glob("*.toml"):
-    try:
-        t = tomllib.loads(p.read_text(encoding="utf-8"))
-    except Exception as e:
-        err(f"{p}: TOML inválido ({e})")
-        continue
-    for k in ("name", "description", "developer_instructions"):
-        if not t.get(k):
-            err(f"{p}: falta {k}")
 
 # Datos privados / secretos
 bad = re.compile(
@@ -89,4 +76,4 @@ for p in ROOT.rglob("*"):
 if errors:
     print("\n".join(errors))
     sys.exit(1)
-print(f"OK: {len(claude)} agentes, {len(list((PLUGIN / 'skills').iterdir()))} skills")
+print(f"OK: {len(agents)} agentes, {len(list((PLUGIN / 'skills').iterdir()))} skills")

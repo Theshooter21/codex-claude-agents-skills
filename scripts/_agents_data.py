@@ -1,4 +1,4 @@
-"""Fuente de los agentes. build_agents.py genera de aquí los .md de Claude y los .toml de Codex."""
+"""Fuente de los agentes. build_agents.py genera de aquí los .md de los agentes de Claude Code."""
 
 AGENTS = [
     dict(
@@ -192,12 +192,12 @@ AGENTS = [
             "Incluir `software-architect` si hay decisiones estructurales o transversales.",
         ],
         limits=[
-            "Solo lectura: no modifica archivos.",
-            "No invoca a Codex, AGY ni a otros modelos; esas delegaciones requieren una orden explícita del usuario en el mensaje actual.",
+            "Solo lectura (Read, Grep, Glob): no modifica archivos.",
+            "Solo recomienda: no ejecuta el trabajo ni delega en otros modelos o herramientas externas de IA; cualquier delegación requiere una orden explícita del usuario.",
             "Recomienda el conjunto mínimo; más agentes no es mejor.",
         ],
         output=["Dominio y riesgos identificados.", "Agentes recomendados, en orden, con una línea de motivo.", "Qué verificar al final."],
-        checks=["Conjunto mínimo suficiente.", "Seguridad incluida cuando hay riesgo real.", "Ninguna delegación automática a otro modelo."],
+        checks=["Conjunto mínimo suficiente.", "Seguridad incluida cuando hay riesgo real.", "Ninguna delegación automática a otros modelos o herramientas."],
         readonly=True,
     ),
 ]

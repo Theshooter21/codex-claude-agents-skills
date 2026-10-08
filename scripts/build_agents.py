@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Genera plugins/agents-skills/agents/*.md (Claude) y codex/agents/*.toml (Codex) desde _agents_data.py."""
+"""Genera plugins/agents-skills/agents/*.md desde _agents_data.py."""
 import json
 import pathlib
 
 from _agents_data import AGENTS
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-CLAUDE = ROOT / "plugins" / "agents-skills" / "agents"
-CODEX = ROOT / "codex" / "agents"
+OUT = ROOT / "plugins" / "agents-skills" / "agents"
 
 
 def bullets(items):
@@ -25,22 +24,12 @@ def body(a):
 
 
 def main():
-    CLAUDE.mkdir(parents=True, exist_ok=True)
-    CODEX.mkdir(parents=True, exist_ok=True)
+    OUT.mkdir(parents=True, exist_ok=True)
     for a in AGENTS:
-        b = body(a)
         tools = "tools: Read, Grep, Glob\n" if a.get("readonly") else ""
-        desc_yaml = json.dumps(a["description"], ensure_ascii=False)
-        md = f"---\nname: {a['name']}\ndescription: {desc_yaml}\n{tools}---\n\n{b}"
-        (CLAUDE / f"{a['name']}.md").write_text(md, encoding="utf-8", newline="\n")
-        assert "'''" not in b
-        sandbox = 'sandbox_mode = "read-only"\n' if a.get("readonly") else ""
-        desc = a["description"].replace('"', '\\"')
-        toml = (
-            f'name = "{a["name"]}"\ndescription = "{desc}"\n{sandbox}'
-            f"developer_instructions = '''\n{b}'''\n"
-        )
-        (CODEX / f"{a['name']}.toml").write_text(toml, encoding="utf-8", newline="\n")
+        desc = json.dumps(a["description"], ensure_ascii=False)
+        md = f"---\nname: {a['name']}\ndescription: {desc}\n{tools}---\n\n{body(a)}"
+        (OUT / f"{a['name']}.md").write_text(md, encoding="utf-8", newline="\n")
     print(f"{len(AGENTS)} agentes generados")
 
 

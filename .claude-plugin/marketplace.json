@@ -2,14 +2,14 @@
   "name": "codex-claude-agents-skills",
   "owner": { "name": "Theshooter21" },
   "metadata": {
-    "description": "Agentes y skills para Claude Code, con equivalentes para Codex."
+    "description": "Agentes y skills para Claude Code, con 11 agentes y 2 skills."
   },
   "plugins": [
     {
       "name": "agents-skills",
       "source": "./plugins/agents-skills",
       "description": "11 agentes especialistas y las skills agent-setup-audit y skill-security-review. Sin delegación automática a otros modelos.",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "license": "MIT",
       "category": "development",
       "keywords": ["agents", "skills", "security", "audit"]

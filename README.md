@@ -1,8 +1,8 @@
-# Codex + Claude: agentes y skills
+# Agentes y skills para Claude Code
 
-Marketplace de plugins para **Claude Code** con agentes y skills listos para instalar, más los equivalentes para **Codex**. Ningún componente delega en otro modelo de forma automática.
+Marketplace de plugins para **Claude Code** con 11 agentes especialistas y 2 skills de auditoría y seguridad. Ningún componente delega en otros modelos ni se activa por hooks.
 
-## Instalar en Claude Code (dos comandos)
+## Instalar (dos comandos)
 
 Dentro de cualquier sesión de Claude Code:
 
@@ -29,26 +29,23 @@ claude plugin install agents-skills@codex-claude-agents-skills
 - `agent-setup-audit`: inventario de solo lectura de skills, agentes y plugins (duplicados, colisiones, qué está activo).
 - `skill-security-review`: revisión defensiva de skills/agentes de terceros antes de instalarlos (`ALLOW` / `REVIEW` / `BLOCK`).
 
-## Codex
+## Uso
 
-Los mismos agentes en formato Codex están en [`codex/agents`](codex/agents) (`.toml`) y las skills usan el mismo formato `SKILL.md`. Para copiarlos a tu máquina (con copia de seguridad, sin borrar nada):
-
-```bash
-git clone https://github.com/Theshooter21/codex-claude-agents-skills
-python codex-claude-agents-skills/scripts/install.py --target codex
-```
-
-Esto deja las skills en `~/.agents/skills` y los agentes en `~/.codex/agents`. Los agentes se generan desde una única fuente (`scripts/_agents_data.py`) con `python scripts/build_agents.py`, así que Claude y Codex no se desincronizan.
+- Claude elige los agentes por su descripción, o los pides por nombre: "usa el agente `security-engineer` para revisar este login".
+- Para una tarea grande, pide primero a `triage-lead` que recomiende qué agentes usar.
+- Skills: "audita mis skills y agentes" o "revisa si es seguro instalar esta skill".
 
 ## Skills de terceros
 
-No se redistribuyen copias de skills ajenas. Las recomendadas (Supabase, accesibilidad, calidad web, etc.) están listadas con su fuente oficial en [`THIRD_PARTY.md`](THIRD_PARTY.md).
+No se redistribuyen copias de skills ajenas. Las recomendadas están listadas con su fuente en [`THIRD_PARTY.md`](THIRD_PARTY.md).
 
 ## Desarrollo
 
 ```bash
-python scripts/build_agents.py   # regenera agentes de Claude y Codex
-python scripts/validate.py       # JSON, frontmatter, TOML, sincronía y datos privados
+python scripts/build_agents.py   # regenera los agentes desde scripts/_agents_data.py
+python scripts/validate.py       # JSON, frontmatter y datos privados
+python scripts/install.py --local   # instala desde este clon (pruebas)
+claude plugin validate .         # validación oficial del marketplace
 ```
 
-Más: [`MANIFEST.md`](MANIFEST.md) (arquitectura y rutas) · [`SECURITY.md`](SECURITY.md) · [`LICENSE`](LICENSE) (MIT).
+Más: [`MANIFEST.md`](MANIFEST.md) · [`SECURITY.md`](SECURITY.md) · [`LICENSE`](LICENSE) (MIT).
