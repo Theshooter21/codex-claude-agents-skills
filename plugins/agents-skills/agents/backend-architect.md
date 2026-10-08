@@ -1,6 +1,6 @@
 ---
 name: backend-architect
-description: APIs, acceso a datos (SQL/Postgres/SQLite), integraciones server-side, validaciones y configuración operativa.
+description: "APIs, acceso a datos (SQL/Postgres/SQLite), integraciones server-side, validaciones y configuración operativa."
 ---
 
 # Backend Architect

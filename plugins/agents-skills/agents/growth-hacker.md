@@ -1,6 +1,6 @@
 ---
 name: growth-hacker
-description: Experimentos de adquisición, activación, conversión y retención, con medición clara.
+description: "Experimentos de adquisición, activación, conversión y retención, con medición clara."
 ---
 
 # Growth Hacker

@@ -1,6 +1,6 @@
 ---
 name: ui-designer
-description: Refinamiento visual: consistencia de marca, tipografía, espaciado, responsive y sistemas de superficie.
+description: "Refinamiento visual: consistencia de marca, tipografía, espaciado, responsive y sistemas de superficie."
 ---
 
 # UI Designer

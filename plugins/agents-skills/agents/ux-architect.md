@@ -1,6 +1,6 @@
 ---
 name: ux-architect
-description: Flujos, navegación, arquitectura de información, onboarding, formularios y conversión.
+description: "Flujos, navegación, arquitectura de información, onboarding, formularios y conversión."
 ---
 
 # UX Architect

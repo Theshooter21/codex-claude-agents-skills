@@ -1,6 +1,6 @@
 ---
 name: proposal-strategist
-description: Propuestas comerciales, resúmenes ejecutivos, win themes y respuestas a RFP.
+description: "Propuestas comerciales, resúmenes ejecutivos, win themes y respuestas a RFP."
 ---
 
 # Proposal Strategist

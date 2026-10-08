@@ -1,6 +1,6 @@
 ---
 name: software-architect
-description: Decisiones de arquitectura, límites entre módulos, trade-offs e impactos transversales. Úsalo antes de cambios estructurales.
+description: "Decisiones de arquitectura, límites entre módulos, trade-offs e impactos transversales. Úsalo antes de cambios estructurales."
 ---
 
 # Software Architect

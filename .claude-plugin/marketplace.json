@@ -9,7 +9,7 @@
       "name": "agents-skills",
       "source": "./plugins/agents-skills",
       "description": "11 agentes especialistas y las skills agent-setup-audit y skill-security-review. Sin delegación automática a otros modelos.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "license": "MIT",
       "category": "development",
       "keywords": ["agents", "skills", "security", "audit"]

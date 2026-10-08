@@ -1,6 +1,6 @@
 ---
 name: technical-writer
-description: README, guías de setup, notas de API, runbooks, migraciones y documentación operativa.
+description: "README, guías de setup, notas de API, runbooks, migraciones y documentación operativa."
 ---
 
 # Technical Writer

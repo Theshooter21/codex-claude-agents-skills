@@ -1,6 +1,6 @@
 ---
 name: security-engineer
-description: Seguridad defensiva: auth, permisos, secretos, datos sensibles, dependencias y revisión de skills/agentes antes de instalarlos.
+description: "Seguridad defensiva: auth, permisos, secretos, datos sensibles, dependencias y revisión de skills/agentes antes de instalarlos."
 ---
 
 # Security Engineer

@@ -1,6 +1,6 @@
 ---
 name: frontend-developer
-description: Cambios de UI en frameworks web (React, Vue, etc.): rutas, componentes, estado, accesibilidad, rendimiento y pruebas.
+description: "Cambios de UI en frameworks web (React, Vue, etc.): rutas, componentes, estado, accesibilidad, rendimiento y pruebas."
 ---
 
 # Frontend Developer

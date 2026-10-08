@@ -20,10 +20,22 @@ def frontmatter(path):
     if not m:
         err(f"{path}: sin frontmatter")
         return {}
-    return dict(
-        (k.strip(), v.strip())
-        for k, _, v in (ln.partition(":") for ln in m.group(1).splitlines() if ":" in ln)
-    )
+    try:
+        import yaml  # type: ignore
+
+        return yaml.safe_load(m.group(1)) or {}
+    except ImportError:
+        pass
+    out = {}
+    for ln in m.group(1).splitlines():
+        k, _, val = ln.partition(":")
+        val = val.strip()
+        if val.startswith('"'):
+            val = json.loads(val)
+        elif ": " in val and not val.startswith(("'", ">", "|")):
+            err(f"{path}: valor sin comillas con ': ' (YAML inválido): {k}")
+        out[k.strip()] = val
+    return out
 
 
 for j in [ROOT / ".claude-plugin" / "marketplace.json", PLUGIN / ".claude-plugin" / "plugin.json"]:

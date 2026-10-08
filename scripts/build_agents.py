@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Genera plugins/agents-skills/agents/*.md (Claude) y codex/agents/*.toml (Codex) desde _agents_data.py."""
+import json
 import pathlib
 
 from _agents_data import AGENTS
@@ -29,7 +30,8 @@ def main():
     for a in AGENTS:
         b = body(a)
         tools = "tools: Read, Grep, Glob\n" if a.get("readonly") else ""
-        md = f"---\nname: {a['name']}\ndescription: {a['description']}\n{tools}---\n\n{b}"
+        desc_yaml = json.dumps(a["description"], ensure_ascii=False)
+        md = f"---\nname: {a['name']}\ndescription: {desc_yaml}\n{tools}---\n\n{b}"
         (CLAUDE / f"{a['name']}.md").write_text(md, encoding="utf-8", newline="\n")
         assert "'''" not in b
         sandbox = 'sandbox_mode = "read-only"\n' if a.get("readonly") else ""

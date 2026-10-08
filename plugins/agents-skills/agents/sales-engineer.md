@@ -1,6 +1,6 @@
 ---
 name: sales-engineer
-description: Discovery técnico, demos, pruebas de concepto, objeciones técnicas e integraciones en contexto comercial.
+description: "Discovery técnico, demos, pruebas de concepto, objeciones técnicas e integraciones en contexto comercial."
 ---
 
 # Sales Engineer
