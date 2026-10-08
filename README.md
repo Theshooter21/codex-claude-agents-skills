@@ -1,40 +1,54 @@
-# Codex + Claude Agents & Skills Setup
+# Codex + Claude: agentes y skills
 
-Plantilla pública para organizar skills, plugins y agentes de Codex y Claude sin activar delegaciones automáticas entre modelos.
+Marketplace de plugins para **Claude Code** con agentes y skills listos para instalar, más los equivalentes para **Codex**. Ningún componente delega en otro modelo de forma automática.
 
-## Objetivos
+## Instalar en Claude Code (dos comandos)
 
-- Mantener skills compartidas en `~/.agents/skills`.
-- Separar las skills exclusivas de Codex y Claude.
-- Evitar duplicados y colisiones de nombres.
-- Instalar plugins únicamente desde fuentes oficiales o verificadas.
-- Impedir que Codex, Claude u otros revisores se invoquen automáticamente.
-- Conservar credenciales, historiales y configuración privada fuera del repositorio.
-
-## Contenido
-
-- [`INSTALL_PROMPT.md`](INSTALL_PROMPT.md): prompt completo para realizar la instalación de forma asistida.
-- [`MANIFEST.md`](MANIFEST.md): clasificación y estructura recomendadas.
-- [`SECURITY.md`](SECURITY.md): límites de seguridad y privacidad.
-
-## Uso rápido
-
-1. Clona este repositorio.
-2. Abre `INSTALL_PROMPT.md`.
-3. Copia el prompt en Codex o Claude.
-4. Revisa el plan que produzca el agente.
-5. Autoriza explícitamente cualquier instalación, eliminación o reemplazo.
-
-Este repositorio no distribuye copias de plugins o skills de terceros. El instalador debe obtenerlos desde sus fuentes oficiales y respetar sus licencias.
-
-## Filosofía de instalación
+Dentro de cualquier sesión de Claude Code:
 
 ```text
-~/.agents/skills   -> skills compartidas
-~/.codex/skills    -> skills exclusivas de Codex
-~/.claude/skills   -> skills exclusivas de Claude
-plugins oficiales  -> integraciones mantenidas por sus proveedores
+/plugin marketplace add Theshooter21/codex-claude-agents-skills
+/plugin install agents-skills@codex-claude-agents-skills
 ```
 
-La presencia de un archivo en una caché no significa que el componente esté activo. La validación final debe hacerse desde una sesión nueva de cada aplicación.
+Después abre una sesión nueva. Si prefieres que una sesión de Claude lo haga por ti, pégale el prompt de [`INSTALL_PROMPT.md`](INSTALL_PROMPT.md).
 
+Desde un terminal, con la CLI de Claude:
+
+```bash
+claude plugin marketplace add Theshooter21/codex-claude-agents-skills
+claude plugin install agents-skills@codex-claude-agents-skills
+```
+
+## Qué incluye
+
+**Agentes (11)**, en [`plugins/agents-skills/agents`](plugins/agents-skills/agents):
+`software-architect`, `backend-architect`, `frontend-developer`, `ui-designer`, `ux-architect`, `security-engineer`, `technical-writer`, `growth-hacker`, `proposal-strategist`, `sales-engineer` y `triage-lead` (solo lectura: recomienda qué agentes usar).
+
+**Skills (2)**, en [`plugins/agents-skills/skills`](plugins/agents-skills/skills):
+- `agent-setup-audit`: inventario de solo lectura de skills, agentes y plugins (duplicados, colisiones, qué está activo).
+- `skill-security-review`: revisión defensiva de skills/agentes de terceros antes de instalarlos (`ALLOW` / `REVIEW` / `BLOCK`).
+
+## Codex
+
+Los mismos agentes en formato Codex están en [`codex/agents`](codex/agents) (`.toml`) y las skills usan el mismo formato `SKILL.md`. Para copiarlos a tu máquina (con copia de seguridad, sin borrar nada):
+
+```bash
+git clone https://github.com/Theshooter21/codex-claude-agents-skills
+python codex-claude-agents-skills/scripts/install.py --target codex
+```
+
+Esto deja las skills en `~/.agents/skills` y los agentes en `~/.codex/agents`. Los agentes se generan desde una única fuente (`scripts/_agents_data.py`) con `python scripts/build_agents.py`, así que Claude y Codex no se desincronizan.
+
+## Skills de terceros
+
+No se redistribuyen copias de skills ajenas. Las recomendadas (Supabase, accesibilidad, calidad web, etc.) están listadas con su fuente oficial en [`THIRD_PARTY.md`](THIRD_PARTY.md).
+
+## Desarrollo
+
+```bash
+python scripts/build_agents.py   # regenera agentes de Claude y Codex
+python scripts/validate.py       # JSON, frontmatter, TOML, sincronía y datos privados
+```
+
+Más: [`MANIFEST.md`](MANIFEST.md) (arquitectura y rutas) · [`SECURITY.md`](SECURITY.md) · [`LICENSE`](LICENSE) (MIT).

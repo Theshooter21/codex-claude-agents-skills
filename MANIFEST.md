@@ -1,84 +1,37 @@
-# Manifiesto recomendado
+# Manifiesto
 
-Este manifiesto describe una arquitectura objetivo. No implica que todos los componentes deban instalarse.
+## Estructura del repo
 
-## Skills compartidas
+```text
+.claude-plugin/marketplace.json        marketplace de Claude Code
+plugins/agents-skills/
+  .claude-plugin/plugin.json           manifiesto del plugin
+  agents/*.md                          11 agentes (Claude), generados
+  skills/<nombre>/SKILL.md             skills (formato compartido Claude/Codex)
+codex/agents/*.toml                    los mismos agentes en formato Codex, generados
+scripts/_agents_data.py                fuente única de los agentes
+scripts/build_agents.py                genera .md y .toml
+scripts/install.py                     instalador (Claude vía CLI, Codex copiando archivos)
+scripts/validate.py                    validaciones
+```
 
-Ubicación preferida: `~/.agents/skills`.
+## Dónde queda cada cosa tras instalar
 
-Categorías sugeridas:
+| Qué | Claude | Codex |
+|---|---|---|
+| Skills | dentro del plugin (`agents-skills:<skill>`) | `~/.agents/skills/<skill>` |
+| Agentes | dentro del plugin | `~/.codex/agents/<agente>.toml` |
 
-- Privacidad y cumplimiento.
-- Edición de imágenes y video.
-- Bases de datos y Supabase.
-- Escritura y documentación.
-- Accesibilidad y calidad web, cuando ambas plataformas soporten la misma skill.
+## Reglas de diseño
 
-Cada skill compartida debe tener:
-
-- Un único directorio canónico.
-- Un `SKILL.md` válido.
-- Fuente y licencia verificables.
-- Nombre único o namespace claro.
-- Activadores que no se solapen de manera ambigua.
-
-## Skills exclusivas de Codex
-
-Ubicación: `~/.codex/skills`.
-
-Ejemplos de categorías:
-
-- Documentación y configuración de productos OpenAI.
-- Creación e instalación de skills de Codex.
-- Revisión de cambios delegada específicamente a Codex.
-- Capacidades integradas de generación de imágenes.
-
-## Skills exclusivas de Claude
-
-Ubicación: `~/.claude/skills`.
-
-Mantener aquí solamente las skills que dependan de:
-
-- Herramientas exclusivas de Claude Code.
-- Convenciones o hooks propios de Claude.
-- Plugins que no sean compatibles con el formato compartido.
-
-## Plugins e integraciones
-
-Clasificación recomendada:
-
-- Nube y despliegue: Render, Vercel o Netlify.
-- Datos: Supabase y PostgreSQL.
-- Diseño: Figma.
-- Documentos: PDF, hojas de cálculo y presentaciones.
-- Control de aplicaciones: computer use y navegador.
-- Seguridad: auditoría, validación y corrección de hallazgos.
-- Desarrollo de agentes: SDKs y APIs oficiales.
-
-Reglas:
-
-- Mantener una sola distribución activa por proveedor y función.
-- Evitar instalar simultáneamente forks equivalentes.
-- No contar el contenido de marketplaces o cachés como activo.
-- Verificar la disponibilidad desde una sesión nueva.
-
-## Agentes y delegación
-
-Los perfiles de rescate o segunda opinión deben ser opt-in:
-
-- No ejecutarse por hooks automáticos.
-- No activarse porque otro agente esté “atascado”.
-- Requerir una petición explícita del usuario en el mensaje actual.
-- Documentar qué proveedor o runtime consumen.
-
-Los agentes empaquetados dentro de plugins deben distinguirse de los subagentes genéricos y de los agentes personalizados persistentes.
+- Una sola fuente por agente; los formatos de Claude y Codex se generan, no se editan a mano.
+- Cada skill tiene un `SKILL.md` válido y `name` igual a su directorio.
+- Los agentes son opt-in: ninguno invoca a otro modelo ni se activa por hooks. `triage-lead` solo lee y recomienda.
+- No se redistribuye contenido de terceros (ver `THIRD_PARTY.md`).
+- Sin credenciales, historiales, rutas privadas ni datos de proyectos concretos; `scripts/validate.py` lo comprueba.
 
 ## Criterios de aceptación
 
-- No hay skills duplicadas con el mismo contenido.
-- Toda colisión de nombres está namespaced o documentada.
-- Cada plugin activo tiene una finalidad clara.
-- No hay invocaciones automáticas entre proveedores de modelos.
-- No se almacenan secretos en el repositorio.
-- La lista observada en sesiones nuevas coincide con el manifiesto aprobado.
-
+- `python scripts/validate.py` termina con `OK`.
+- En una sesión nueva de Claude Code aparecen los 11 agentes y las 2 skills del plugin.
+- No hay delegación automática ni hooks añadidos.

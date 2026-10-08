@@ -1,0 +1,10 @@
+{
+  "name": "agents-skills",
+  "version": "1.0.0",
+  "description": "Agentes especialistas (arquitectura, backend, frontend, UX/UI, seguridad, documentación, crecimiento, preventa) y skills de auditoría y revisión de seguridad. Sin delegación automática a otros modelos.",
+  "author": { "name": "Theshooter21" },
+  "homepage": "https://github.com/Theshooter21/codex-claude-agents-skills",
+  "repository": "https://github.com/Theshooter21/codex-claude-agents-skills",
+  "license": "MIT",
+  "keywords": ["agents", "skills", "security", "audit", "claude", "codex"]
+}
